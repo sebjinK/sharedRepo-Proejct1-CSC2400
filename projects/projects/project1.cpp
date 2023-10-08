@@ -48,7 +48,10 @@ int main()
             cin >> n;
             cout << "\n//Consecutive INteger Checking Algorithm//\n";
             GCD = consecutiveIntCheckAlgorithm(m, n);
-            cout << "\nGCD(" << m << ", " << n << ") = " << GCD; 
+            if (GCD == 0)
+                cout << "\nGCD(" << m << ", " << n << ") = undefined";
+            else
+                cout << "\nGCD(" << m << ", " << n << ") = " << GCD; 
         }
 
     } while (choice == 1 || choice == 2);

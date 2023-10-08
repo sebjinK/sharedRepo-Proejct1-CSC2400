@@ -1,6 +1,12 @@
 #ifndef project_H
 #define project_H
 #include <iostream>
+/*
+    File:           project1.h
+    Author:         Sebjin Kennedy
+    Date:           October 8th, 2023
+    Description:    This script holds functions for all three ways of checking GCD
+*/
 
 using namespace std;
 /*
@@ -17,6 +23,15 @@ int euclidsAlgo(int m, int n)
     cout << endl << m;
     return m;
 }
+*/
+
+/*
+Calculates GCD from m and n and returns m(x) + n(y)
+Interpreted through the Extended Euclidean Algorithm
+Args:
+    two numbers m and n. Two null pointers x and y
+returns:
+    GCD
 */
 int extendedEuclidsAlgo(int m, int n, int *x, int *y)
 {
@@ -42,27 +57,54 @@ int extendedEuclidsAlgo(int m, int n, int *x, int *y)
     return gcd;
 }
 
+/*
+Calculates GCD from m and n and returns GCD
+Interpreted through the consectutive integer checking algorithm
+
+Args:
+    two numbers m and n
+returns:
+    GCD
+*/
 int consecutiveIntCheckAlgorithm(int m, int n)
 {
-    if (m == 0 && n == 0)
-        return 0;
-    if (m < 0 || n < 0)
-        return -1;
-    int smaller = min(m, n);
-    for (int i = smaller; i >= 1; i--)
+    m = abs(m);
+    n = abs(n);
+    if (m == 0 || n == 0)
     {
-        if (m % i == 0 && n % i == 0)
+        if (n == 0 && m == 0)
+            return 0;
+        else if (n == 0)
+            return m;
+        else
+            return n;
+    }
+    int smaller = min(m, n);
+    while (smaller > 0)
+    {
+        if (m % smaller == 0 && n % smaller == 0)
         {
-            if (m < 0 || n < 0)
-                return -1 * i;
-            return i;
+            return smaller;
         }
+        smaller--;
     }
 
     return 1; //if no common factor is found
 }
 
 
+/*
+Calculates GCD from m and n and returns GCD
+interpreted through middle school procedure
+(use seive of eratosthenes to calculate prime numbers)
+(put those numbers in an array)
+(compare array m and array n and find matching vlaues)
+(put those into seperate array and multiply all elements of final array together)
+Args:
+    two numbers m and n
+returns:
+    GCD
+*/
 /*
 int sieveOfEratosthenes(int m, int n)
 {
