@@ -149,9 +149,9 @@ int middleSchool(int m, int n)
             matching[i] = false;
     }
     int j = 2;
-    for (int i = 2; i < min(m, n); i++)
+    for (int i = 2; i < min(m, n); i++) //for loop to run through the smaller of the two arrays to find the GCD
     {
-        if (matching[i] && m % i == 0 && n % i == 0)
+        if (matching[i] && m % i == 0 && n % i == 0) //if statement to check matching[i] against m and n
         {
             GCD *= i;
         }
