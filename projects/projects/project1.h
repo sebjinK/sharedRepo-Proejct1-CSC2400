@@ -100,10 +100,8 @@ int consecutiveIntCheckAlgorithm(int m, int n)
 
 
 /*
-Calculates GCD from m and n and returns GCD
-interpreted through middle school procedure
-(use seive of eratosthenes to calculate prime numbers)
-(put those numbers in an array)
+use seive of eratosthenes to calculate prime numbers
+put those numbers in an array
 Args:
     a number input
 returns:
@@ -112,7 +110,7 @@ returns:
 
 vector<bool> sieveOfEratosthenes(int input)
 {
-    vector<bool> PrimeCheck(input + 1, true); // vector will check true for all prime numbers
+    vector<bool> PrimeCheck(input + 1, true); // vector will check true so as to not go out of bounds
     PrimeCheck[0] = PrimeCheck[1] = false;
 
 
@@ -129,7 +127,19 @@ vector<bool> sieveOfEratosthenes(int input)
     }
     return PrimeCheck; //return the resulting vector with prime numbers being true and non-primes being false
 }
+/*
+Calculates GCD from m and n and returns GCD
+interpreted through middle school procedure
+use seive of eratosthenes to calculate prime numbers
+put those numbers in an array
+match prime numbers
+calculate GCD 
 
+Args:
+    two number inputs m and n
+returns:
+    integer containing GCD
+*/
 int middleSchool(int m, int n)
 {
     m = abs(m);
@@ -145,13 +155,22 @@ int middleSchool(int m, int n)
     }
     vector<bool> mArray = sieveOfEratosthenes(m);
     vector<bool> nArray = sieveOfEratosthenes(n);
-
+    vector<bool> matching(min(m, n) + 1, true);
+    matching[0] = matching[1] = false;
     int GCD = 1;
 
     for (int i = 2; i <= min(m, n); i++) //run through the smaller of the two arrays
     {
-        if (mArray[i] && nArray[i]) //check if both are true
-            GCD = i;
+        if (!(mArray[i]) && !(nArray[i])) //check if both are true
+            matching[i] = false;
+    }
+    int j = 2;
+    for (int i = 2; i < min(m, n); i++)
+    {
+        if (matching[i] && m % i == 0 && n % i == 0)
+        {
+            GCD *= i;
+        }
     }
     return GCD; //will return the largest of the two
 }
