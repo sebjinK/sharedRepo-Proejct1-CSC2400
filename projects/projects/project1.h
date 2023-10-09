@@ -1,6 +1,7 @@
 #ifndef project_H
 #define project_H
 #include <iostream>
+#include <vector>
 /*
     File:           project1.h
     Author:         Sebjin Kennedy
@@ -35,6 +36,7 @@ returns:
 */
 int extendedEuclidsAlgo(int m, int n, int *x, int *y)
 {
+    
     if (n == 0) //base case
     {
         *x = 1;
@@ -53,7 +55,11 @@ int extendedEuclidsAlgo(int m, int n, int *x, int *y)
     //recursive calls for calculating the new coefficients
 
     *x = yStorage;
-    *y = xStorage - (n / m) * yStorage;
+    if (m == 0)
+        *y = xStorage - (m / n) * yStorage;
+    else
+        *y = xStorage - (n / m) * yStorage;
+
     return gcd;
 }
 
@@ -70,23 +76,23 @@ int consecutiveIntCheckAlgorithm(int m, int n)
 {
     m = abs(m);
     n = abs(n);
-    if (m == 0 || n == 0)
+    if (m == 0 || n == 0) //if statements to check if m and n fail any 0 checks
     {
-        if (n == 0 && m == 0)
+        if (n == 0 && m == 0) //if m and n are both 0 they automatically fail
             return 0;
-        else if (n == 0)
+        else if (n == 0) //if m OR n are 0, they automatically return the n OR m respectively
             return m;
         else
             return n;
     }
-    int smaller = min(m, n);
-    while (smaller > 0)
+    int t = min(m, n);//save the minimum of m and n
+    while (t > 0) // while loop that checks through t's integer's that lesser than it to see what is its GCD
     {
-        if (m % smaller == 0 && n % smaller == 0)
+        if (m % t == 0 && n % t == 0) // use modulo to check if t divides evenly among both of the two inputs m and n
         {
-            return smaller;
+            return t; //finish the while loop
         }
-        smaller--;
+        t--; // iterate through the size of the smaller integer
     }
 
     return 1; //if no common factor is found
@@ -98,16 +104,58 @@ Calculates GCD from m and n and returns GCD
 interpreted through middle school procedure
 (use seive of eratosthenes to calculate prime numbers)
 (put those numbers in an array)
-(compare array m and array n and find matching vlaues)
-(put those into seperate array and multiply all elements of final array together)
 Args:
-    two numbers m and n
+    a number input
 returns:
-    GCD
+    vector array of prime numbers lesser than input
 */
-/*
-int sieveOfEratosthenes(int m, int n)
+
+vector<bool> sieveOfEratosthenes(int input)
 {
+    vector<bool> PrimeCheck(input + 1, true); // vector will check true for all prime numbers
+    PrimeCheck[0] = PrimeCheck[1] = false;
+
+
+    for (int p = 2; p * p <= input; p++) //p is the starting number; we go until p^2 <= input so we don't have collision problems.  
+    {                                   //ex. if p = 4 and input = 5, p^2 would be 16 and the process would keep going until p = 5;
+        if (PrimeCheck[p]) //primecheck at p is already set to true at creation
+        {
+            for (int i = p * p; i <= input; i += p) // ex. p = 4 so i = 16; i > input (= 5); so the inner for loop will stop there
+            {                                       // i += p due to how some numbers divide evenly but some others don't like 
+                                                    // like how 8 divides evenly into 24 but 8 does not.
+                PrimeCheck[i] = false; //this will make any NON-prime numbers 
+            }
+        }
+    }
+    return PrimeCheck; //return the resulting vector with prime numbers being true and non-primes being false
+}
+
+int middleSchool(int m, int n)
+{
+    m = abs(m);
+    n = abs(n);
+    if (m == 0 || n == 0) //if statements to check if m and n fail any 0 checks
+    {
+        if (n == 0 && m == 0) //if m and n are both 0 they automatically fail
+            return 0;
+        else if (n == 0) //if m OR n are 0, they automatically return the n OR m respectively
+            return m;
+        else
+            return n;
+    }
+    vector<bool> mArray = sieveOfEratosthenes(m);
+    vector<bool> nArray = sieveOfEratosthenes(n);
+
+    int GCD = 1;
+
+    for (int i = 2; i <= min(m, n); i++) //run through the smaller of the two arrays
+    {
+        if (mArray[i] && nArray[i]) //check if both are true
+            GCD = i;
+    }
+    return GCD; //will return the largest of the two
+}
+/*
     //Implements sieve of Eratosthenes
     //Input:    A positive integer n > 1
     //Output:   Array L of all prime numbers less than or equal to n

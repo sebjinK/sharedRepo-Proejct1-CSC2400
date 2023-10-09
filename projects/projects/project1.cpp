@@ -26,8 +26,9 @@ int main()
         cout << "\n\nWhat algorithim do you want to use?\n";
         cout << "1. Extended Euclid's Algorithm\n";
         cout << "2. Consecutive Integer checking algorithm\n";
-        cout << "3. Leave";
-        cout << "\n\nPLEASE CHOOSE 1 OR 2. Press any other number to leave\n";
+        cout << "3. Middle-School Procedure\n";
+        cout << "4. Leave";
+        cout << "\n\nPLEASE CHOOSE ANY NUMBER 1-3. Press any other number to leave\n";
         cin >> choice;
 
         if (choice == 1)
@@ -37,8 +38,17 @@ int main()
             cin >> n;
             cout << "\n//Extended Euclid's Algorithm//\n";
             GCD = extendedEuclidsAlgo(m, n, &x, &y);
-            cout << "\nFormat:\n(m)(x) + (n)(y) to a GCD of (GCD)";
-            cout <<  "\n(" << m << ")(" << x << ") + (" << n << ")(" << y <<") = to a GCD of " << GCD;
+            if (GCD == 0)
+            {
+                cout << "\nFormat:\n(m)(x) + (n)(y) to a GCD of (GCD)";
+                cout <<  "\n(" << m << ")(" << x << ") + (" << n << ")(" << y <<") = to a GCD of undefined";
+            }
+            else
+            {
+                cout << "\nFormat:\n(m)(x) + (n)(y) to a GCD of (GCD)";
+                cout <<  "\n(" << m << ")(" << x << ") + (" << n << ")(" << y <<") = to a GCD of " << abs(GCD);
+            }
+            
         }
 
         else if(choice == 2)
@@ -54,7 +64,19 @@ int main()
                 cout << "\nGCD(" << m << ", " << n << ") = " << GCD; 
         }
 
-    } while (choice == 1 || choice == 2);
+        else if(choice == 3)
+        {
+            cout << "\n\tWhat are the two numbers you want the gcd of?";
+            cin >> m;
+            cin >> n;
+            cout << "\n//Middle School Procedure//\n";
+            GCD = middleSchool(m, n);
+            if (GCD == 0)
+                cout << "\nGCD(" << m << ", " << n << ") = undefined";
+            else
+                cout << "\nGCD(" << m << ", " << n << ") = " << GCD; 
+        }
+    } while (choice >= 1 || choice <= 3);
     
     return 0;
 }
