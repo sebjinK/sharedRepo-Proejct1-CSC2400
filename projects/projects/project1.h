@@ -10,21 +10,6 @@
 */
 
 using namespace std;
-/*
-int euclidsAlgo(int m, int n)
-{
-    int remainder;
-    do
-    {
-        remainder = m % n;
-        cout << "\ngcd(" << m << ", " << n << ") = gcd (" << n << ", " << "(" << m << " % " << n << "))";
-        m = n;
-        n = remainder;
-    } while (n != 0);
-    cout << endl << m;
-    return m;
-}
-*/
 
 /*
 Calculates GCD from m and n and returns m(x) + n(y)
@@ -107,7 +92,6 @@ Args:
 returns:
     vector array of prime numbers lesser than input
 */
-
 vector<bool> sieveOfEratosthenes(int input)
 {
     vector<bool> PrimeCheck(input + 1, true); // vector will check true so as to not go out of bounds
@@ -174,52 +158,4 @@ int middleSchool(int m, int n)
     }
     return GCD; //will return the largest of the two
 }
-/*
-    //Implements sieve of Eratosthenes
-    //Input:    A positive integer n > 1
-    //Output:   Array L of all prime numbers less than or equal to n
-
-    int * A;
-    int j;
-    int p;
-    int * L;
-    A = new int[m * n];
-
-    for (int i = 2; i < m; i++)
-    {
-        A[i] = i;
-    }
-
-    for (int i = 2; i < sqrt(m); i++)
-    {
-        if (A[i] != 0)
-        {
-            j = i * i;
-
-            while (j <= m)
-            {
-                A[j] = 0;
-                j += i;
-            }
-        }
-        
-    }
-    p = 0;
-    for (int i = 2; i < m; i++)
-    {
-        if (A[i] != 0)
-        {
-            L[i] = A[i];
-        }
-    }
-
-    return -1; //return L;
-}
-
-*/
-/*
-use function to implement sieve twice
-use a varaible (ans = 1) and multiply the common primes by it 
-return the primes and output the GCD
-*/
 #endif
